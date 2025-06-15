@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class EvaluacionService {
   static const String _baseUrl =
-      'https://b2ef-131-178-102-172.ngrok-free.app'; // ngrok o tu backend real
+      'https://absolute-live-sheepdog.ngrok-free.app'; // ngrok o tu backend real
 
   static Future<String> generarEvaluacion(
     List<Map<String, String>> respuestas,

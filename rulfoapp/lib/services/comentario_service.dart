@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class ComentarioService {
   static const String _baseUrl =
-      'https://b2ef-131-178-102-172.ngrok-free.app'; // o tu IP local
+      'https://absolute-live-sheepdog.ngrok-free.app'; // o tu IP local
 
   static Future<String> enviarComentario({
     required String comentario,

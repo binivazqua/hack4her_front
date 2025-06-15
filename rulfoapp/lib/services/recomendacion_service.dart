@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class RecomendacionService {
   static const String _baseUrl =
-      'https://b2ef-131-178-102-172.ngrok-free.app'; // reemplaza con tu endpoint real
+      'https://absolute-live-sheepdog.ngrok-free.app'; // reemplaza con tu endpoint real
 
   static Future<String> obtenerRecomendaciones(String evaluacionTexto) async {
     final url = Uri.parse('$_baseUrl/recomendaciones-inmediatas');

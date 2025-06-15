@@ -58,7 +58,9 @@ class _ComentarioPageState extends State<ComentarioPage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            //VoiceCommentInput(onResult: _procesarComentario),
+            VoiceCommentInput(onResult: _procesarComentario),
+
+            /*
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
@@ -78,8 +80,7 @@ class _ComentarioPageState extends State<ComentarioPage> {
                   keyboardType: TextInputType.multiline,
                 ),
               ),
-            ),
-
+            ),*/
             const SizedBox(height: 20),
 
             ElevatedButton(

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class EntrevistaService {
-  static const _baseUrl = 'https://b2ef-131-178-102-172.ngrok-free.app';
+  static const _baseUrl = 'https://absolute-live-sheepdog.ngrok-free.app';
 
   static Future<List<Map<String, String>>> obtenerGuiaEntrevista(
     Map<String, dynamic> perfilCliente,

@@ -14,25 +14,61 @@ class _VoiceCommentInputState extends State<VoiceCommentInput> {
   late stt.SpeechToText _speech;
   bool _isListening = false;
   String _text = "Mantén presionado para grabar";
+  List<stt.LocaleName> _locales = [];
+  String _selectedLocaleId = 'es-MX';
 
   @override
   void initState() {
     super.initState();
     _speech = stt.SpeechToText();
+    _initializeSpeech();
+  }
+
+  void _initializeSpeech() async {
+    bool available = await _speech.initialize(
+      onStatus: (status) => print('Status: \$status'),
+      onError: (error) => print('Error: \$error'),
+    );
+    if (available) {
+      _locales = await _speech.locales();
+      print('Idiomas disponibles:');
+      for (var locale in _locales) {
+        print('\${locale.localeId} - \${locale.name}');
+      }
+      setState(() {});
+    } else {
+      print('Speech recognition no está disponible');
+    }
   }
 
   void _startListening() async {
-    bool available = await _speech.initialize();
-    if (available) {
-      setState(() => _isListening = true);
-      _speech.listen(
-        onResult: (result) {
-          setState(() {
-            _text = result.recognizedWords;
-          });
-        },
-      );
+    if (!_speech.isAvailable) {
+      print('No se puede iniciar: speech no está disponible');
+      return;
     }
+
+    setState(() {
+      _isListening = true;
+      _text = ""; // limpia el texto al iniciar
+    });
+
+    _speech.listen(
+      localeId: _selectedLocaleId,
+      partialResults: true, // permite resultados parciales en tiempo real
+      listenFor: const Duration(seconds: 30),
+      pauseFor: const Duration(seconds: 5),
+      onResult: (result) {
+        print(
+          'Final? \${result.finalResult} - Texto: \${result.recognizedWords}',
+        );
+        setState(() {
+          _text = result.recognizedWords;
+        });
+        if (result.finalResult) {
+          widget.onResult(result.recognizedWords);
+        }
+      },
+    );
   }
 
   void _stopListening() {
@@ -45,6 +81,23 @@ class _VoiceCommentInputState extends State<VoiceCommentInput> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        DropdownButton<String>(
+          value: _selectedLocaleId,
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              setState(() {
+                _selectedLocaleId = newValue;
+              });
+            }
+          },
+          items: _locales.map((locale) {
+            return DropdownMenuItem<String>(
+              value: locale.localeId,
+              child: Text(locale.name),
+            );
+          }).toList(),
+        ),
+        const SizedBox(height: 16),
         Text(_text),
         const SizedBox(height: 16),
         GestureDetector(

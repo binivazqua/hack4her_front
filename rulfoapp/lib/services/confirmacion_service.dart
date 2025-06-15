@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 
 class ConfirmacionService {
   static const String _baseUrl =
-      'https://b2ef-131-178-102-172.ngrok-free.app'; // actualiza con tu dominio
+      'https://absolute-live-sheepdog.ngrok-free.app'; // actualiza con tu dominio
 
   static Future<String> confirmarVisita({
     required String puntoId,
