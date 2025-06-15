@@ -64,10 +64,27 @@ class _EntrevistaFormBuilderState extends State<EntrevistaFormBuilder> {
         ...controllerMap.entries.map(
           (entry) => Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: entry.value,
-              decoration: InputDecoration(labelText: entry.key),
-            ),
+            child: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text(
+      entry.key,
+      style: const TextStyle(
+        fontSize: 16,
+        color: Colors.white,
+      ),
+    ),
+    const SizedBox(height: 8),
+    TextFormField(
+      controller: entry.value,
+      maxLines: null, 
+      decoration: const InputDecoration(
+        hintText: 'Escribe tu respuesta...',
+      ),
+    ),
+  ],
+),
+
           ),
         ),
         ElevatedButton(

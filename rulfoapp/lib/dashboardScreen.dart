@@ -20,12 +20,10 @@ class _DashboardScreenContent extends StatefulWidget {
 }
 
 class _DashboardScreenContentState extends State<_DashboardScreenContent> {
-  // Colores de la app
   static const Color primaryPurple = Colors.purple;
   static const Color primaryRed = Colors.red;
   static const Color primaryPink = Colors.pink;
 
-  // Filtros
   String selectedZone = 'Todas las zonas';
   String selectedPerformance = 'Todos los rendimientos';
   
@@ -235,8 +233,7 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
           'Dashboard Arca Continental',
           style: TextStyle(
             color: Colors.white,
-            fontFamily: 'Helvetica',
-            fontWeight: FontWeight.bold,
+            fontFamily: 'magistral',
           ),
         ),
         flexibleSpace: Container(
@@ -400,43 +397,46 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
   Widget _buildKPICards() {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        childAspectRatio: 1.5,
-        children: [
-          _buildKPICard(
-            'NPS Promedio',
-            '85',
-            'Satisfacción del Cliente',
-            Icons.sentiment_satisfied_alt,
-            primaryPurple,
-          ),
-          _buildKPICard(
-            'Fill Rate',
-            '95.5%',
-            'Inventario Completo',
-            Icons.inventory,
-            primaryRed,
-          ),
-          _buildKPICard(
-            'Damage Rate',
-            '1.2%',
-            'Productos Dañados',
-            Icons.warning,
-            primaryPink,
-          ),
-          _buildKPICard(
-            'Puntos Activos',
-            '75%',
-            'Tiendas Operativas',
-            Icons.store,
-            Colors.deepPurple,
-          ),
-        ],
+      child: SizedBox(
+        height: 325,
+        child: GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: 2,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 10,
+          childAspectRatio: 1.5,
+          children: [
+            _buildKPICard(
+              'NPS Promedio',
+              '85',
+              'Satisfacción del Cliente',
+              Icons.sentiment_satisfied_alt,
+              primaryPurple,
+            ),
+            _buildKPICard(
+              'Fill Rate',
+              '95.5%',
+              'Inventario Completo',
+              Icons.inventory,
+              primaryRed,
+            ),
+            _buildKPICard(
+              'Damage Rate',
+              '1.2%',
+              'Productos Dañados',
+              Icons.warning,
+              primaryPink,
+            ),
+            _buildKPICard(
+              'Puntos Activos',
+              '75%',
+              'Tiendas Operativas',
+              Icons.store,
+              Colors.deepPurple,
+            ),
+          ],
+        ),
       ),
     );
   }

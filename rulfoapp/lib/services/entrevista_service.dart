@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class EntrevistaService {
-  static const _baseUrl = 'http://127.0.0.1:8000';
+  static const _baseUrl = 'https://b2ef-131-178-102-172.ngrok-free.app';
 
   static Future<List<Map<String, String>>> obtenerGuiaEntrevista(
     Map<String, dynamic> perfilCliente,
@@ -24,3 +24,7 @@ class EntrevistaService {
     }
   }
 }
+
+
+
+

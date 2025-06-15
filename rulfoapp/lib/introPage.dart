@@ -1,9 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'map.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'introPage.dart';
+import 'services/notifications_services.dart';
 
-class IntroPage1 extends StatelessWidget {
+class IntroPage1 extends StatefulWidget {
   const IntroPage1({super.key});
+
+  @override
+  State<IntroPage1> createState() => _IntroPage1State();
+}
+
+class _IntroPage1State extends State<IntroPage1> {
+  @override
+  void initState() {
+    super.initState();
+    _initNotifications();
+  }
+
+ Future<void> _initNotifications() async {
+  await notificationsService.initNotification();
+  await notificationsService.scheduleNotification(
+    id: 1,
+    title: 'Recordatorio',
+    body: '¡Tienes una cita pendiente hoy!',
+    hour: 5,
+    minute: 0,
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +65,6 @@ class IntroPage1 extends StatelessWidget {
                   color: Colors.white,
                   fontFamily: 'magistral',
                   fontWeight: FontWeight.w700,
-                  fontStyle: FontStyle.italic,
                 ),
               ).animate().fadeIn(
                   delay: const Duration(milliseconds: 700),
@@ -50,10 +77,9 @@ class IntroPage1 extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => MapScreen()));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.purple,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40, vertical: 12),
+                  backgroundColor: Colors.white70,
+                  foregroundColor: Colors.redAccent,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                 ),

@@ -74,7 +74,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Citas', style: TextStyle(color: Colors.white)),
+        title: const Text('Citas', style: TextStyle(color: Colors.white, fontFamily: 'magistral')),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
@@ -99,7 +99,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // Info Box
                 Container(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -138,6 +137,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                             Text('2. OXXO Eugenio'),
                             Text('3. OXXO Vallarta'),
                           ],
+                          
                         ),
                       ),
                     ],
@@ -306,8 +306,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     );
                                   }).toList(),
                                 ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 80),
                         ],
+                        
                       ),
                     ),
                   ),

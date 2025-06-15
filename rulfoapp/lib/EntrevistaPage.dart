@@ -65,14 +65,51 @@ class _EntrevistaPageState extends State<EntrevistaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Entrevista')),
-      body: Padding(
+      appBar: AppBar(title: const Text('Entrevista', style:TextStyle(color: Colors.white)),
+      backgroundColor:Colors.transparent,
+      elevation: 0,
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
+              colors: [Colors.red, Colors.pink],
+            ),
+          ),
+      ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
+            colors: [Colors.purple, Colors.red, Colors.pink],
+          ),
+        ),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          textTheme: Theme.of(context).textTheme.apply(
+            bodyColor: Colors.white,
+            displayColor: Colors.white
+        ),
+     inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(color: Colors.white),
+        hintStyle: TextStyle(color: Colors.white70),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white70),
+        ),
+         focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
+        ),
+      ),
+    ),
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: isLoading
             ? const Center(child: CircularProgressIndicator())
             : error.isNotEmpty
             ? Center(
-                child: Text(error, style: const TextStyle(color: Colors.red)),
+                child: Text(error, style: const TextStyle(color: Colors.white)),
               )
             : EntrevistaFormBuilder(
                 preguntas: preguntas
@@ -84,6 +121,8 @@ class _EntrevistaPageState extends State<EntrevistaPage> {
                     .toList(),
                 onSubmit: handleSubmit,
               ),
+          ),
+        ),
       ),
     );
   }
