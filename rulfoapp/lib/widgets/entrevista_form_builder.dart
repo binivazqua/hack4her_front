@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rulfoapp/pages/ComentarioPage.dart';
 import 'package:rulfoapp/services/entrevista_service.dart';
 
 class EntrevistaFormBuilder extends StatefulWidget {
@@ -78,6 +79,15 @@ class _EntrevistaFormBuilderState extends State<EntrevistaFormBuilder> {
             widget.onSubmit(respuestas);
           },
           child: Text("Enviar"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ComentarioPage()),
+            );
+          },
+          child: Text("Observaciones"),
         ),
       ],
     );
