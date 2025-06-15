@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'EncuestaScreen.dart';
+import 'EntrevistaPage.dart';
 
 class Appointment {
   final DateTime date;
@@ -277,13 +277,12 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const EncuestaScreen(),
+                                                      const EntrevistaPage(),
                                                 ),
                                               );
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Colors.redAccent,
+                                              backgroundColor: Colors.redAccent,
                                               foregroundColor: Colors.white,
                                               padding:
                                                   const EdgeInsets.symmetric(
