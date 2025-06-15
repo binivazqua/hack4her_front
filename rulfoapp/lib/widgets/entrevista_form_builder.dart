@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rulfoapp/pages/ComentarioPage.dart';
 import 'package:rulfoapp/services/entrevista_service.dart';
 
 class EntrevistaFormBuilder extends StatefulWidget {
@@ -59,27 +60,65 @@ class _EntrevistaFormBuilderState extends State<EntrevistaFormBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        ...controllerMap.entries.map(
-          (entry) => Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: entry.value,
-              decoration: InputDecoration(labelText: entry.key),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ...controllerMap.entries.map(
+                    (entry) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            entry.key,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextFormField(
+                            controller: entry.value,
+                            decoration: const InputDecoration(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      final respuestas = {
+                        for (var e in controllerMap.entries)
+                          e.key: e.value.text,
+                      };
+                      widget.onSubmit(respuestas);
+                    },
+                    child: Text("Enviar"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      final respuestas = {
+                        for (var e in controllerMap.entries)
+                          e.key: e.value.text,
+                      };
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ComentarioPage(respuestas: [respuestas]),
+                        ),
+                      );
+                    },
+                    child: Text("Observaciones"),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final respuestas = {
-              for (var e in controllerMap.entries) e.key: e.value.text,
-            };
-            widget.onSubmit(respuestas);
-          },
-          child: Text("Enviar"),
-        ),
-      ],
+        );
+      },
     );
   }
 }

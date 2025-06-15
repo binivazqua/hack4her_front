@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rulfoapp/pages/GuiaActitudPage.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'EntrevistaPage.dart';
 
@@ -271,35 +272,42 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             ),
                                           ),
                                           const SizedBox(width: 8),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const EntrevistaPage(),
-                                                ),
-                                              );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.redAccent,
-                                              foregroundColor: Colors.white,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 8,
+                                          Column(
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const GuiaActitudPage(),
+                                                    ),
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      Colors.redAccent,
+                                                  foregroundColor: Colors.white,
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 12,
+                                                        vertical: 8,
+                                                      ),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          20,
+                                                        ),
                                                   ),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                child: const Text(
+                                                  'Capacitarme',
+                                                ),
                                               ),
-                                              textStyle: const TextStyle(
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            child: const Text(
-                                              'Empezar encuesta',
-                                            ),
+                                            ],
                                           ),
                                         ],
                                       ),
