@@ -46,7 +46,22 @@ class _GuiaActitudPageState extends State<GuiaActitudPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Guía de Actitud")),
+      appBar: AppBar(
+        title: const Text("Guía de Actitud"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.purple,
+                Colors.red,
+                Colors.pink, // Tercer color
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : error.isNotEmpty
@@ -57,7 +72,7 @@ class _GuiaActitudPageState extends State<GuiaActitudPage> {
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
                       "Recomendación para el trato al cliente:",
@@ -70,6 +85,13 @@ class _GuiaActitudPageState extends State<GuiaActitudPage> {
                     Text(guia!, style: const TextStyle(fontSize: 16)),
                     const SizedBox(height: 24),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.purple[100],
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
+                      ),
                       onPressed: () =>
                           Navigator.pushNamed(context, '/entrevista'),
                       child: const Text("Comenzar entrevista"),

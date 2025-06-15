@@ -240,7 +240,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     appointment,
                                   ) {
                                     return Container(
-                                      margin: const EdgeInsets.only(bottom: 12),
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

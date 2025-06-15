@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rulfoapp/services/recomendacion_service.dart';
 import 'package:rulfoapp/services/confirmacion_service.dart';
+import 'package:rulfoapp/widgets/snackbar_confirmacion.dart';
 
 class RecomendacionPage extends StatefulWidget {
   final String evaluacion;
@@ -79,7 +80,22 @@ class _RecomendacionPageState extends State<RecomendacionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Recomendaciones inmediatas")),
+      appBar: AppBar(
+        title: const Text("Recomendaciones inmediatas"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.purple,
+                Colors.red,
+                Colors.pink, // Tercer color
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: isLoading
@@ -97,6 +113,7 @@ class _RecomendacionPageState extends State<RecomendacionPage> {
                       itemBuilder: (context, index) {
                         final recomendacion = recomendaciones[index];
                         return Card(
+                          color: Colors.purple[50],
                           elevation: 2,
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           child: Padding(

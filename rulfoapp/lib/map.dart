@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:rulfoapp/models/NotificationItem.dart';
 import 'appointment.dart';
 import 'dashboardScreen.dart';
-
-
 
 class Lugar {
   final String nombre;
@@ -28,6 +28,27 @@ class _MapScreenState extends State<MapScreen> {
     'POINT (-100.3031637, 25.6734108)',
     'POINT (-100.3216174, 25.6597296)',
     'POINT (-100.2942107, 25.6553848)',
+  ];
+
+  // liSTA DE NOTIFICACIONES DUMMY
+  final List<NotificationItem> dummyNotifications = [
+    NotificationItem(
+      title: 'Recordatorio de visita',
+      body: 'Tienes una cita con la Dra. López el 15 de junio a las 4:30 PM.',
+      date: DateTime.now().subtract(const Duration(hours: 1)),
+    ),
+    NotificationItem(
+      title: 'Actualización de información',
+      body:
+          'Tu perfil médico fue actualizado con los últimos resultados de EMG.',
+      date: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    NotificationItem(
+      title: 'Seguimiento pendiente',
+      body:
+          'No olvides completar el cuestionario de seguimiento antes del viernes.',
+      date: DateTime.now().subtract(const Duration(days: 2)),
+    ),
   ];
 
   final List<Lugar> lugares = [
@@ -79,6 +100,37 @@ class _MapScreenState extends State<MapScreen> {
       double lat = double.parse(coords[1].trim());
       return LatLng(lat, lon);
     }).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Simula una notificación al arrancar
+    Future.delayed(const Duration(seconds: 1), () {
+      showSimpleNotification(
+        const Text("Recordatorio de visita"),
+        subtitle: const Text(
+          "Tienes una visita programada a Oxxo Av. Eugenio el 15 de junio a las 4:30 PM.",
+        ),
+        background: Colors.indigo,
+        leading: const Icon(Icons.calendar_today, color: Colors.white),
+        duration: const Duration(seconds: 4),
+      );
+    });
+
+    // Otra más tarde
+    Future.delayed(const Duration(seconds: 4), () {
+      showSimpleNotification(
+        const Text("Actualización de información"),
+        subtitle: const Text(
+          "El historial de Oxxo Nueva Independencia tiene nuevos comentarios.",
+        ),
+        background: Colors.teal,
+        leading: const Icon(Icons.update, color: Colors.white),
+        duration: const Duration(seconds: 4),
+      );
+    });
   }
 
   @override
@@ -303,16 +355,16 @@ class _MapScreenState extends State<MapScreen> {
         backgroundColor: Colors.white,
         selectedItemColor: Colors.redAccent,
         unselectedItemColor: Colors.grey,
-        currentIndex: 0, 
+        currentIndex: 0,
         onTap: (index) {
-          if (index == 0) {
-          } if (index == 1) {
+          if (index == 0) {}
+          if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => AppointmentScreen()),
             );
           }
-          if(index==2){
+          if (index == 2) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => DashboardScreen()),
@@ -322,18 +374,17 @@ class _MapScreenState extends State<MapScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.map_outlined),
-            label: 'mapa'
-            ),
-            BottomNavigationBarItem(
+            label: 'mapa',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label: 'citas',
           ),
           BottomNavigationBarItem(
-            icon: 
-            Icon(Icons.dashboard_sharp),
-            label:'dashboard'
-            )
-          ],
+            icon: Icon(Icons.dashboard_sharp),
+            label: 'dashboard',
+          ),
+        ],
       ),
     );
   }

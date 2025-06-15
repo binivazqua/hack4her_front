@@ -38,7 +38,22 @@ class _ComentarioPageState extends State<ComentarioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Comentario del colaborador")),
+      appBar: AppBar(
+        title: const Text("Guía de Actitud"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.purple,
+                Colors.red,
+                Colors.pink, // Tercer color
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -68,6 +83,13 @@ class _ComentarioPageState extends State<ComentarioPage> {
             const SizedBox(height: 20),
 
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple[100],
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
               onPressed: () {
                 _procesarComentario(_textoController.text);
                 SnackbarConfirmacion.show(
@@ -79,11 +101,17 @@ class _ComentarioPageState extends State<ComentarioPage> {
             ),
 
             const SizedBox(height: 8),
-            Text(_comentarioGenerado),
 
             SizedBox(height: 20),
 
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple[100],
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
               onPressed: () {
                 Navigator.push(
                   context,

@@ -79,7 +79,22 @@ class _EntrevistaPageState extends State<EntrevistaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Entrevista')),
+      appBar: AppBar(
+        title: const Text("Entrevista"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.purple,
+                Colors.red,
+                Colors.pink, // Tercer color
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: isLoading

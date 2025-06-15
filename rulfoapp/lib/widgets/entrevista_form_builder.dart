@@ -88,6 +88,13 @@ class _EntrevistaFormBuilderState extends State<EntrevistaFormBuilder> {
                     ),
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.purple[100],
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                    ),
                     onPressed: () {
                       final respuestas = {
                         for (var e in controllerMap.entries)
@@ -97,7 +104,15 @@ class _EntrevistaFormBuilderState extends State<EntrevistaFormBuilder> {
                     },
                     child: Text("Enviar"),
                   ),
+                  SizedBox(height: 10),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.purple[100],
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                    ),
                     onPressed: () {
                       final respuestas = {
                         for (var e in controllerMap.entries)
