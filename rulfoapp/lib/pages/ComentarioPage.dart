@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rulfoapp/pages/EvaluacionPage.dart';
 import 'package:rulfoapp/services/comentario_service.dart';
+import 'package:rulfoapp/services/confirmacion_service.dart';
 import 'package:rulfoapp/services/evaluacion_service.dart';
 import 'package:rulfoapp/widgets/VoiceCommentInput.dart';
+import 'package:rulfoapp/widgets/snackbar_confirmacion.dart';
 
 class ComentarioPage extends StatefulWidget {
   final List<Map<String, String>> respuestas;
@@ -42,9 +44,25 @@ class _ComentarioPageState extends State<ComentarioPage> {
         child: Column(
           children: [
             //VoiceCommentInput(onResult: _procesarComentario),
-            TextField(
-              controller: _textoController,
-              decoration: InputDecoration(labelText: 'Escribe tu comentario'),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: SizedBox(
+                height: 300,
+                child: TextField(
+                  controller: _textoController,
+                  decoration: const InputDecoration(
+                    labelText: 'Escribe tu comentario',
+                    border: InputBorder.none,
+                  ),
+                  maxLines: 4,
+                  minLines: 2,
+                  keyboardType: TextInputType.multiline,
+                ),
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -52,13 +70,14 @@ class _ComentarioPageState extends State<ComentarioPage> {
             ElevatedButton(
               onPressed: () {
                 _procesarComentario(_textoController.text);
+                SnackbarConfirmacion.show(
+                  context,
+                  mensaje: "Comentario enviado exitosamente",
+                );
               },
               child: Text("Enviar Observación"),
             ),
-            Text(
-              "Comentario resumido:",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+
             const SizedBox(height: 8),
             Text(_comentarioGenerado),
 
@@ -74,7 +93,7 @@ class _ComentarioPageState extends State<ComentarioPage> {
                   ),
                 );
               },
-              child: const Text("Enviar Evaluación"),
+              child: const Text("Terminar entrevista"),
             ),
           ],
         ),

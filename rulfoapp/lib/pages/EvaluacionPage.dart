@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rulfoapp/pages/Recomendacion_page.dart';
 import 'package:rulfoapp/services/evaluacion_service.dart';
+import 'package:rulfoapp/widgets/snackbar_confirmacion.dart';
 
 class EvaluacionPage extends StatefulWidget {
   final List<Map<String, String>> respuestas;
@@ -54,6 +55,22 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
                     ElevatedButton(
                       onPressed: () async {
                         try {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) => AlertDialog(
+                              content: Row(
+                                children: [
+                                  const CircularProgressIndicator(),
+                                  const SizedBox(width: 16),
+                                  const Expanded(
+                                    child: Text("Creando recomendaciones..."),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+
                           // 🔁 Re-generar evaluación para asegurar que esté actualizada
                           final nuevaEvaluacion =
                               await EvaluacionService.generarEvaluacion(
@@ -69,9 +86,10 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
                                     "visita_54c92eaf-ee32-40e5-915f-4cfa2757e50c",
                               );
 
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(mensaje)));
+                          if (mounted)
+                            Navigator.of(context).pop(); // Cierra el diálogo
+
+                          SnackbarConfirmacion.show(context, mensaje: mensaje);
 
                           Navigator.push(
                             context,
@@ -87,9 +105,11 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
                             ),
                           );
                         } catch (e) {
-                          ScaffoldMessenger.of(
+                          SnackbarConfirmacion.show(
                             context,
-                          ).showSnackBar(SnackBar(content: Text("Error: $e")));
+                            mensaje: 'Error al guardar evaluación: $e',
+                            backgroundColor: Colors.red,
+                          );
                         }
                       },
                       child: const Text("Guardar y continuar"),

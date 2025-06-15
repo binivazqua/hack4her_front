@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rulfoapp/services/entrevista_service.dart';
 import 'package:rulfoapp/widgets/entrevista_form_builder.dart';
+import 'package:rulfoapp/widgets/snackbar_confirmacion.dart';
 
 class EntrevistaPage extends StatefulWidget {
   const EntrevistaPage({Key? key}) : super(key: key);
@@ -49,7 +50,6 @@ class _EntrevistaPageState extends State<EntrevistaPage> {
   void handleSubmit(Map<String, dynamic> respuestasMap) {
     print('✅ Respuestas enviadas:');
 
-    // Lo transformamos a la estructura esperada por tu backend
     final respuestasList = respuestasMap.entries
         .map((entry) => {"id_pregunta": entry.key, "respuesta": entry.value})
         .toList();
@@ -60,6 +60,20 @@ class _EntrevistaPageState extends State<EntrevistaPage> {
 
     // Aquí podrías llamar directamente a tu servicio de evaluación o guardado:
     // EvaluacionService.enviarEvaluacion(respuestasList, colaborador, cliente);
+
+    // Mostrar feedback visual con un SnackBar de confirmación
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   const SnackBar(
+    //     content: Text('Respuestas enviadas correctamente'),
+    //     backgroundColor: Colors.green,
+    //     duration: Duration(seconds: 2),
+    //   ),
+    // );
+    // Usar el widget especial SnackbarConfirmacion
+    SnackbarConfirmacion.show(
+      context,
+      mensaje: 'Respuestas enviadas correctamente',
+    );
   }
 
   @override
