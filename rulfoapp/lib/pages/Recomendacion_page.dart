@@ -23,6 +23,7 @@ class _RecomendacionPageState extends State<RecomendacionPage> {
   bool isLoading = true;
   String error = '';
   String confirmacionMsg = '';
+  bool mostrarAnimacionConfirmacion = false;
 
   @override
   void initState() {
@@ -111,20 +112,38 @@ class _RecomendacionPageState extends State<RecomendacionPage> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton.icon(
-                    onPressed: _confirmarVisita,
+                    onPressed: () async {
+                      try {
+                        final result =
+                            await ConfirmacionService.confirmarVisita(
+                              puntoId: widget.puntoId,
+                              visitaId: widget.visitaId,
+                            );
+
+                        if (result == "ANIMACION_CONFIRMADA") {
+                          setState(() => mostrarAnimacionConfirmacion = true);
+                          await Future.delayed(const Duration(seconds: 2));
+                          setState(() => mostrarAnimacionConfirmacion = false);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("✅ Visita confirmada exitosamente"),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text(result)));
+                        }
+                      } catch (e) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text("❌ $e")));
+                      }
+                    },
                     icon: const Icon(Icons.check),
                     label: const Text("Confirmar visita"),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
                   ),
-                  const SizedBox(height: 12),
-                  if (confirmacionMsg.isNotEmpty)
-                    Text(
-                      confirmacionMsg,
-                      style: const TextStyle(fontSize: 14, color: Colors.green),
-                      textAlign: TextAlign.center,
-                    ),
                 ],
               ),
       ),

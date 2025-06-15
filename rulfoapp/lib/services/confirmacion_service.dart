@@ -15,7 +15,8 @@ class ConfirmacionService {
     final response = await http.post(url);
 
     if (response.statusCode == 200) {
-      return "✅ Visita confirmada";
+      // En vez de retornar un mensaje simple, retornamos una bandera para mostrar animación
+      return "ANIMACION_CONFIRMADA";
     } else {
       throw Exception('Error al confirmar visita: ${response.body}');
     }
