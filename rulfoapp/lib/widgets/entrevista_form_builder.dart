@@ -82,9 +82,14 @@ class _EntrevistaFormBuilderState extends State<EntrevistaFormBuilder> {
         ),
         ElevatedButton(
           onPressed: () {
+            final respuestas = {
+              for (var e in controllerMap.entries) e.key: e.value.text,
+            };
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ComentarioPage()),
+              MaterialPageRoute(
+                builder: (context) => ComentarioPage(respuestas: [respuestas]),
+              ),
             );
           },
           child: Text("Observaciones"),

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:rulfoapp/pages/EvaluacionPage.dart';
 import 'package:rulfoapp/services/comentario_service.dart';
+import 'package:rulfoapp/services/evaluacion_service.dart';
 import 'package:rulfoapp/widgets/VoiceCommentInput.dart';
 
 class ComentarioPage extends StatefulWidget {
-  const ComentarioPage({super.key});
+  final List<Map<String, String>> respuestas;
+  const ComentarioPage({super.key, required this.respuestas});
 
   @override
   State<ComentarioPage> createState() => _ComentarioPageState();
 }
 
 class _ComentarioPageState extends State<ComentarioPage> {
+  TextEditingController _textoController = TextEditingController();
   String _comentarioGenerado = "";
 
   void _procesarComentario(String texto) async {
@@ -39,19 +43,39 @@ class _ComentarioPageState extends State<ComentarioPage> {
           children: [
             //VoiceCommentInput(onResult: _procesarComentario),
             TextField(
-              decoration: const InputDecoration(
-                labelText: 'Escribe tu comentario',
-                border: OutlineInputBorder(),
-              ),
-              onSubmitted: _procesarComentario,
+              controller: _textoController,
+              decoration: InputDecoration(labelText: 'Escribe tu comentario'),
             ),
+
             const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: () {
+                _procesarComentario(_textoController.text);
+              },
+              child: Text("Enviar Observación"),
+            ),
             Text(
               "Comentario resumido:",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
             Text(_comentarioGenerado),
+
+            SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EvaluacionPage(respuestas: widget.respuestas),
+                  ),
+                );
+              },
+              child: const Text("Enviar Evaluación"),
+            ),
           ],
         ),
       ),

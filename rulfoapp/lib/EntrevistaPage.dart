@@ -57,6 +57,9 @@ class _EntrevistaPageState extends State<EntrevistaPage> {
     for (var r in respuestasList) {
       print('${r["id_pregunta"]}: ${r["respuesta"]}');
     }
+
+    // Aquí podrías llamar directamente a tu servicio de evaluación o guardado:
+    // EvaluacionService.enviarEvaluacion(respuestasList, colaborador, cliente);
   }
 
   @override
