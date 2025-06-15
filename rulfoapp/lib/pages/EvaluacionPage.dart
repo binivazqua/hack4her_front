@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rulfoapp/map.dart';
 import 'package:rulfoapp/pages/Recomendacion_page.dart';
 import 'package:rulfoapp/services/evaluacion_service.dart';
 import 'package:rulfoapp/widgets/snackbar_confirmacion.dart';
@@ -44,6 +45,16 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Evaluación"),
+        leading: IconButton(
+          icon: Icon(Icons.home, color: Colors.white),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => MapScreen()),
+              (route) => false, // Elimina el historial de navegación
+            );
+          },
+        ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(

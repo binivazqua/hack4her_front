@@ -16,7 +16,8 @@ class _DashboardScreenContent extends StatefulWidget {
   const _DashboardScreenContent({Key? key}) : super(key: key);
 
   @override
-  State<_DashboardScreenContent> createState() => _DashboardScreenContentState();
+  State<_DashboardScreenContent> createState() =>
+      _DashboardScreenContentState();
 }
 
 class _DashboardScreenContentState extends State<_DashboardScreenContent> {
@@ -28,7 +29,7 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
   // Filtros
   String selectedZone = 'Todas las zonas';
   String selectedPerformance = 'Todos los rendimientos';
-  
+
   final List<String> zonas = [
     'Todas las zonas',
     'Centro Monterrey',
@@ -36,9 +37,9 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
     'Santa Catarina',
     'San Nicolás',
     'Guadalupe',
-    'Apodaca'
+    'Apodaca',
   ];
-  
+
   final List<Map<String, String>> performanceFilters = [
     {'label': 'Todos los rendimientos', 'value': 'Todos los rendimientos'},
     {'label': 'NPS Alto (>90)', 'value': 'nps_high'},
@@ -182,11 +183,12 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
     print('Filtrando puntos de venta:');
     print('Zona seleccionada: $selectedZone');
     print('Rendimiento seleccionado: $selectedPerformance');
-    
+
     final filtered = puntosVenta.where((punto) {
-      bool matchesZone = selectedZone == 'Todas las zonas' || 
-                        punto['zonaGeografica'] == selectedZone;
-      
+      bool matchesZone =
+          selectedZone == 'Todas las zonas' ||
+          punto['zonaGeografica'] == selectedZone;
+
       bool matchesPerformance = selectedPerformance == 'Todos los rendimientos';
       if (selectedPerformance != 'Todos los rendimientos') {
         switch (selectedPerformance) {
@@ -203,27 +205,30 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
             matchesPerformance = punto['fillRate'] > 95;
             break;
           case 'fill_medium':
-            matchesPerformance = punto['fillRate'] >= 85 && punto['fillRate'] <= 95;
+            matchesPerformance =
+                punto['fillRate'] >= 85 && punto['fillRate'] <= 95;
             break;
           case 'fill_low':
             matchesPerformance = punto['fillRate'] < 85;
             break;
         }
       }
-      
+
       print('Evaluando punto: ${punto['nombre']}');
       print('- Zona: ${punto['zonaGeografica']} (matches: $matchesZone)');
-      print('- NPS: ${punto['nps']}, Fill Rate: ${punto['fillRate']} (matches: $matchesPerformance)');
-      
+      print(
+        '- NPS: ${punto['nps']}, Fill Rate: ${punto['fillRate']} (matches: $matchesPerformance)',
+      );
+
       return matchesZone && matchesPerformance;
     }).toList();
-    
+
     print('Total de puntos filtrados: ${filtered.length}');
     print('Puntos que pasaron el filtro:');
     for (var punto in filtered) {
       print('- ${punto['nombre']} (${punto['zonaGeografica']})');
     }
-    
+
     return filtered;
   }
 
@@ -294,73 +299,90 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
               fontFamily: 'Helvetica',
             ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: DropdownButtonFormField<String>(
-                  value: selectedZone,
-                  decoration: InputDecoration(
-                    labelText: 'Zona Geográfica',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  ),
-                  items: zonas.map((String zona) {
-                    return DropdownMenuItem<String>(
-                      value: zona,
-                      child: Text(
-                        zona,
-                        style: const TextStyle(
-                          fontFamily: 'Helvetica',
-                          fontSize: 14,
+          const SizedBox(height: 30),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 50,
+                    width: 250,
+                    child: DropdownButtonFormField<String>(
+                      value: selectedZone,
+                      decoration: InputDecoration(
+                        labelText: 'Zona Geográfica',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
                         ),
                       ),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    if (newValue != null) {
-                      setState(() {
-                        selectedZone = newValue;
-                      });
-                    }
-                  },
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: DropdownButtonFormField<String>(
-                  value: selectedPerformance,
-                  decoration: InputDecoration(
-                    labelText: 'Rendimiento',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      items: zonas.map((String zona) {
+                        return DropdownMenuItem<String>(
+                          value: zona,
+                          child: Text(
+                            zona,
+                            style: const TextStyle(
+                              fontFamily: 'Helvetica',
+                              fontSize: 12,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          setState(() {
+                            selectedZone = newValue;
+                          });
+                        }
+                      },
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
-                  items: performanceFilters.map((Map<String, String> filter) {
-                    return DropdownMenuItem<String>(
-                      value: filter['value'],
-                      child: Text(
-                        filter['label']!,
-                        style: const TextStyle(
-                          fontFamily: 'Helvetica',
-                          fontSize: 14,
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    width: 200,
+                    child: DropdownButtonFormField<String>(
+                      value: selectedPerformance,
+                      decoration: InputDecoration(
+                        labelText: 'Rendimiento',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
                         ),
                       ),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    if (newValue != null) {
-                      setState(() {
-                        selectedPerformance = newValue;
-                      });
-                    }
-                  },
-                ),
+                      items: performanceFilters.map((
+                        Map<String, String> filter,
+                      ) {
+                        return DropdownMenuItem<String>(
+                          value: filter['value'],
+                          child: Text(
+                            filter['label']!,
+                            style: const TextStyle(
+                              fontFamily: 'Helvetica',
+                              fontSize: 14,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          setState(() {
+                            selectedPerformance = newValue;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),
@@ -386,9 +408,7 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
             width: 40,
             height: 3,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [primaryPurple, primaryRed],
-              ),
+              gradient: LinearGradient(colors: [primaryPurple, primaryRed]),
               borderRadius: BorderRadius.all(Radius.circular(2)),
             ),
           ),
@@ -399,49 +419,60 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
 
   Widget _buildKPICards() {
     return Container(
-      padding: const EdgeInsets.all(16),
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        childAspectRatio: 1.5,
-        children: [
-          _buildKPICard(
-            'NPS Promedio',
-            '85',
-            'Satisfacción del Cliente',
-            Icons.sentiment_satisfied_alt,
-            primaryPurple,
-          ),
-          _buildKPICard(
-            'Fill Rate',
-            '95.5%',
-            'Inventario Completo',
-            Icons.inventory,
-            primaryRed,
-          ),
-          _buildKPICard(
-            'Damage Rate',
-            '1.2%',
-            'Productos Dañados',
-            Icons.warning,
-            primaryPink,
-          ),
-          _buildKPICard(
-            'Puntos Activos',
-            '75%',
-            'Tiendas Operativas',
-            Icons.store,
-            Colors.deepPurple,
-          ),
-        ],
+      height: 400,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return GridView.extent(
+            maxCrossAxisExtent: constraints.maxWidth / 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            childAspectRatio: 1,
+            children: [
+              _buildKPICard(
+                'NPS Promedio',
+                '85',
+                'Satisfacción del Cliente',
+                Icons.sentiment_satisfied_alt,
+                primaryPurple,
+              ),
+              _buildKPICard(
+                'Fill Rate',
+                '95.5%',
+                'Inventario Completo',
+                Icons.inventory,
+                primaryRed,
+              ),
+              _buildKPICard(
+                'Damage Rate',
+                '1.2%',
+                'Productos Dañados',
+                Icons.warning,
+                primaryPink,
+              ),
+              _buildKPICard(
+                'Puntos Activos',
+                '75%',
+                'Tiendas Operativas',
+                Icons.store,
+                Colors.deepPurple,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildKPICard(String title, String value, String subtitle, IconData icon, Color color) {
+  Widget _buildKPICard(
+    String title,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color color,
+  ) {
     return Card(
       elevation: 4,
       shape: const RoundedRectangleBorder(
@@ -538,7 +569,8 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
                   ),
                   children: [
                     TileLayer(
-                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      urlTemplate:
+                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'com.example.rulfoapp',
                     ),
                     MarkerLayer(
@@ -551,7 +583,8 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
                           width: 40,
                           height: 40,
                           child: Tooltip(
-                            message: '${punto['nombre']}\nNPS: ${punto['nps']}\nÚltima visita: ${punto['ultimaVisita']}',
+                            message:
+                                '${punto['nombre']}\nNPS: ${punto['nps']}\nÚltima visita: ${punto['ultimaVisita']}',
                             child: Icon(
                               Icons.location_on,
                               color: primaryPurple,
@@ -586,7 +619,11 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              Icon(Icons.location_on, color: primaryPurple, size: 20),
+                              Icon(
+                                Icons.location_on,
+                                color: primaryPurple,
+                                size: 20,
+                              ),
                               const SizedBox(width: 4),
                               const Text('Punto de Venta'),
                             ],
@@ -612,7 +649,7 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
       final zona = punto['zonaGeografica'];
       zonaDistribution[zona] = (zonaDistribution[zona] ?? 0) + 1;
     }
-    
+
     // Convertir a porcentajes
     final total = filteredPuntos.length;
     final sections = zonaDistribution.entries.map((entry) {
@@ -683,10 +720,7 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
           Text(
             'El gráfico muestra el rendimiento de cada especialista basado en el NPS promedio '
             'de sus puntos de venta asignados, permitiendo identificar áreas de oportunidad y mejores prácticas.',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
           ),
           const SizedBox(height: 16),
           SizedBox(
@@ -698,30 +732,15 @@ class _DashboardScreenContentState extends State<_DashboardScreenContent> {
                 barGroups: [
                   BarChartGroupData(
                     x: 0,
-                    barRods: [
-                      BarChartRodData(
-                        toY: 85,
-                        color: primaryPurple,
-                      ),
-                    ],
+                    barRods: [BarChartRodData(toY: 85, color: primaryPurple)],
                   ),
                   BarChartGroupData(
                     x: 1,
-                    barRods: [
-                      BarChartRodData(
-                        toY: 92,
-                        color: primaryRed,
-                      ),
-                    ],
+                    barRods: [BarChartRodData(toY: 92, color: primaryRed)],
                   ),
                   BarChartGroupData(
                     x: 2,
-                    barRods: [
-                      BarChartRodData(
-                        toY: 78,
-                        color: primaryPink,
-                      ),
-                    ],
+                    barRods: [BarChartRodData(toY: 78, color: primaryPink)],
                   ),
                 ],
                 titlesData: FlTitlesData(

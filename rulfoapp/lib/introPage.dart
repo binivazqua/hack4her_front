@@ -20,14 +20,10 @@ class IntroPage1 extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'lib/assets/logo.png',
-                width: 300,
-              )
-                  .animate()
-                  .fadeIn(
-                      delay: const Duration(milliseconds: 500),
-                      duration: const Duration(milliseconds: 1500)),
+              Image.asset('lib/assets/logo.png', width: 300).animate().fadeIn(
+                delay: const Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 1500),
+              ),
 
               const SizedBox(height: 2),
               const Text(
@@ -40,33 +36,38 @@ class IntroPage1 extends StatelessWidget {
                   fontStyle: FontStyle.italic,
                 ),
               ).animate().fadeIn(
-                  delay: const Duration(milliseconds: 700),
-                  duration: const Duration(milliseconds: 1200)),
+                delay: const Duration(milliseconds: 700),
+                duration: const Duration(milliseconds: 1200),
+              ),
 
               const SizedBox(height: 30),
 
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => MapScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => MapScreen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.purple,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 40, vertical: 12),
+                    horizontal: 40,
+                    vertical: 12,
+                  ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                ),
-                child: const Text(
-                  'iniciar',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
+                child: const Text(
+                  '¡Vamos!',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ).animate().fadeIn(
-                  delay: const Duration(milliseconds: 900),
-                  duration: const Duration(milliseconds: 1000)),
+                delay: const Duration(milliseconds: 900),
+                duration: const Duration(milliseconds: 1000),
+              ),
             ],
           ),
         ),

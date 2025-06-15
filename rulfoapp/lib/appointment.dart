@@ -313,7 +313,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     );
                                   }).toList(),
                                 ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 200),
                         ],
                       ),
                     ),
