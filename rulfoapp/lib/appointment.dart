@@ -307,40 +307,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                   'Capacitarme',
                                                 ),
                                               ),
-
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const EntrevistaPage(),
-                                                    ),
-                                                  );
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.redAccent,
-                                                  foregroundColor: Colors.white,
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 8,
-                                                      ),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          20,
-                                                        ),
-                                                  ),
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                                child: const Text(
-                                                  'Empezar encuesta',
-                                                ),
-                                              ),
                                             ],
                                           ),
                                         ],

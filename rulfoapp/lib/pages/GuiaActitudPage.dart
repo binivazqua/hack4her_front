@@ -55,22 +55,27 @@ class _GuiaActitudPageState extends State<GuiaActitudPage> {
             )
           : Padding(
               padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Recomendación para el trato al cliente:",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(guia!, style: const TextStyle(fontSize: 16)),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, '/entrevista'),
-                    child: const Text("Comenzar entrevista"),
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Recomendación para el trato al cliente:",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(guia!, style: const TextStyle(fontSize: 16)),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/entrevista'),
+                      child: const Text("Comenzar entrevista"),
+                    ),
+                  ],
+                ),
               ),
             ),
     );
